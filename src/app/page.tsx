@@ -1,254 +1,226 @@
-"use client";
+import Link from "next/link";
 
-import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 import { Header } from "@/components/wrapper/header";
 import { Footer } from "@/components/wrapper/footer";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-
-const services = [
-  {
-    title: "Brand Systems",
-    description:
-      "Build expressive component libraries with brutalist borders, gradients, and motion presets.",
-    tone: "bg-surface-primary",
-  },
-  {
-    title: "Experience Design",
-    description:
-      "Compose layouts using modular grids, bold typography, and animated accents that demand attention.",
-    tone: "bg-surface-muted",
-  },
-  {
-    title: "Interactive Prototypes",
-    description:
-      "Prototype quickly with shadcn + Tailwind, maintaining accessibility and consistent theming.",
-    tone: "bg-surface-strong",
-  },
-];
-
-const articles = [
-  {
-    eyebrow: "Case Study",
-    title: "Scaling Neo-Brutal Interfaces",
-    summary:
-      "How we evolved a startup dashboard into a radical design system without sacrificing usability.",
-  },
-  {
-    eyebrow: "Playbook",
-    title: "Shadows, Borders, and Motion",
-    summary:
-      "A practical guide to layering brutalist shadows with offset transitions for tactile depth.",
-  },
-  {
-    eyebrow: "Workshop",
-    title: "Design Tokens for Bold Themes",
-    summary:
-      "Mapping CSS variables to Tailwind utilities to keep multi-brand experiences aligned.",
-  },
-];
-
-const BUTTON_BASE =
-  "rounded-3xl border-4 border-border font-black uppercase tracking-[0.28em] transition-transform duration-200 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
-
-const buttonVariantsNeo = {
-  primary: `${BUTTON_BASE} px-8 py-3 text-xs md:text-sm bg-accent text-accent-foreground shadow-brut hover:shadow-brut-lg`,
-  secondary: `${BUTTON_BASE} px-6 py-3 text-[0.75rem] md:text-sm bg-surface-muted text-foreground shadow-brut-sm hover:bg-surface-strong hover:shadow-brut`,
-  ghost: `${BUTTON_BASE} px-5 py-2 text-[0.68rem] md:text-xs bg-transparent text-foreground shadow-brut-sm hover:bg-surface-muted/70`,
-  inverse: `${BUTTON_BASE} px-8 py-3 text-xs md:text-sm bg-foreground text-background shadow-brut hover:shadow-brut-lg`,
-} as const;
+import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
+import { Button } from "@/components/design-system-sonoliar/atoms";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col gap-16 bg-background px-4 py-12 sm:px-6 md:px-10">
+    <div className="min-h-screen bg-background text-foreground">
       <Header />
+      <main className="mx-auto flex max-w-6xl flex-col gap-16 px-6 py-16">
+        <section
+          id="home"
+          className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]"
+        >
+          <div className="rounded-[var(--radius-xl)] border-4 border-border bg-surface-primary p-12 shadow-brut-lg">
+            <span className="mb-6 inline-flex items-center rounded-full border-4 border-border bg-secondary px-5 py-2 text-xs font-black uppercase tracking-[0.35em] text-secondary-foreground shadow-brut-sm">
+              Neo-brutalism
+            </span>
+            <h1 className="text-5xl font-black leading-[1.05] tracking-tight">
+              Membawa energi berani ke pengalaman digital
+              <AnimatedGradientText className="mt-4 block text-6xl leading-none">
+                Portfolio Hadijoe
+              </AnimatedGradientText>
+            </h1>
+            <p className="mt-6 text-lg font-medium text-foreground/80">
+              Kombinasi blok warna tegas, bayangan dramatis, dan tipografi berat
+              menghadirkan identitas yang tidak terlupakan untuk setiap proyek.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Button asChild className="min-w-[200px] tracking-[0.2em]">
+                <Link href="#contact">Mulai Projek</Link>
+              </Button>
+              <Button
+                asChild
+                variant="secondary"
+                className="tracking-[0.2em]"
+              >
+                <Link href="#about">Jelajahi Profil</Link>
+              </Button>
+              <Button
+                asChild
+                variant="ghost"
+                className="tracking-[0.2em]"
+              >
+                <Link href="/atoms">Demo Komponen</Link>
+              </Button>
+              <Button
+                asChild
+                variant="ghost"
+                className="tracking-[0.2em]"
+              >
+                <Link href="/ui-atoms">UI Atoms Showcase</Link>
+              </Button>
+            </div>
+          </div>
+          <div className="flex flex-col gap-6">
+            <div className="rounded-[var(--radius-lg)] border-4 border-border bg-surface-muted p-8 shadow-brut">
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-foreground/70">
+                Signature
+              </p>
+              <p className="mt-4 text-2xl font-black leading-snug">
+                Layout modular dengan bayangan blok besar dan kontur tebal
+                menciptakan ritme visual yang energik namun terstruktur.
+              </p>
+            </div>
+            <div className="rounded-[var(--radius-lg)] border-4 border-border bg-surface-strong p-8 shadow-brut">
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-foreground/70">
+                Palette
+              </p>
+              <div className="mt-6 grid grid-cols-3 gap-3">
+                <span className="flex h-20 w-full items-center justify-center rounded-2xl border-4 border-border bg-[#111827] text-xs font-black uppercase tracking-wide text-[#fdf3d7] shadow-brut-sm">
+                  Noir
+                </span>
+                <span className="flex h-20 w-full items-center justify-center rounded-2xl border-4 border-border bg-[#ff5c8d] text-xs font-black uppercase tracking-wide text-[#111827] shadow-brut-sm">
+                  Punch
+                </span>
+                <span className="flex h-20 w-full items-center justify-center rounded-2xl border-4 border-border bg-[#ffe066] text-xs font-black uppercase tracking-wide text-[#111827] shadow-brut-sm">
+                  Solar
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      <section
-        id="home"
-        className="mx-auto flex w-full max-w-5xl flex-col items-center gap-8 rounded-[var(--radius-xl)] border-4 border-border bg-surface-primary px-8 py-12 text-center shadow-brut"
-      >
-        <AnimatedGradientText className="text-3xl font-black uppercase tracking-[0.3em] text-foreground md:text-5xl">
-          Neo Brutalist Design Lab
-        </AnimatedGradientText>
-
-        <p className="max-w-3xl text-base font-semibold text-foreground/80 md:text-lg">
-          We craft unapologetically bold interfaces powered by Tailwind CSS v4,
-          shadcn, and a meticulously tuned design token stack. Every surface,
-          shadow, and motion cue is engineered for impact.
-        </p>
-
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <Button
-            variant="outline"
-            className={buttonVariantsNeo.primary}
-            onClick={() =>
-              toast("Event has been created", {
-                description: "Sunday, December 03, 2023 at 9:00 AM",
-                action: {
-                  label: "Undo",
-                  onClick: () => console.log("Undo"),
-                },
-              })
-            }
-          >
-            Book a Session
-          </Button>
-          <Button
-            variant="outline"
-            className={buttonVariantsNeo.secondary}
-          >
-            View Playbook
-          </Button>
-        </div>
-      </section>
-
-      <section
-        id="about"
-        className="mx-auto grid w-full max-w-5xl gap-8 rounded-[var(--radius-xl)] border-4 border-border bg-surface-muted p-8 shadow-brut-lg md:grid-cols-[1.1fr_0.9fr]"
-      >
-        <div className="flex flex-col gap-4">
-          <span className="text-xs font-black uppercase tracking-[0.35em] text-foreground/70">
-            About the Studio
-          </span>
-          <h2 className="text-2xl font-black uppercase tracking-[0.28em] text-foreground">
-            Radical yet usable foundations
+        <section
+          id="about"
+          className="rounded-[var(--radius-xl)] border-4 border-border bg-surface-primary p-12 shadow-brut-lg"
+        >
+          <h2 className="text-3xl font-black uppercase tracking-[0.3em]">
+            About
           </h2>
-          <p className="text-sm font-semibold text-foreground/80 md:text-base">
-            We specialize in translating brand narratives into brutalist systems
-            that scale. From token architecture to motion guidelines, our
-            end-to-end approach keeps your product expressive, inclusive, and
-            unmistakably yours.
-          </p>
-          <Button
-            variant="outline"
-            className={`${buttonVariantsNeo.ghost} w-fit`}
-          >
-            Meet the Team
-          </Button>
-        </div>
-
-        <div className="grid gap-4">
-          <div className="rounded-[var(--radius-lg)] border-4 border-border bg-surface-primary p-6 text-left shadow-brut-sm">
-            <h3 className="text-lg font-black uppercase tracking-[0.28em] text-foreground">
-              Process
-            </h3>
-            <p className="mt-3 text-sm font-semibold text-foreground/80">
-              Workshops, system audits, prototyping sprints, and UI kits tuned
-              for development velocity.
+          <div className="mt-6 grid gap-8 lg:grid-cols-2">
+            <p className="text-lg font-medium text-foreground/80">
+              Saya adalah seorang desainer dan pengembang front-end yang fokus pada
+              sistem desain berani, penuh warna, dan tak kenal kompromi. Neo-brutalism
+              menjadi bahasa visual utama untuk menonjolkan brand digital.
+            </p>
+            <p className="text-lg font-medium text-foreground/80">
+              Dengan pendekatan modular, setiap halaman dibangun dari blok-blok
+              kontras yang memandu perhatian pengguna sekaligus memperjelas hierarki
+              informasi.
             </p>
           </div>
-          <div className="rounded-[var(--radius-lg)] border-4 border-border bg-surface-strong p-6 text-left shadow-brut">
-            <h3 className="text-lg font-black uppercase tracking-[0.28em] text-foreground">
-              Tooling
-            </h3>
-            <p className="mt-3 text-sm font-semibold text-foreground/80">
-              Tailwind, shadcn, Radix, and custom linting pipelines ensure every
-              component stays on-brand across themes.
-            </p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section
-        id="service"
-        className="mx-auto w-full max-w-6xl rounded-[var(--radius-xl)] border-4 border-border bg-surface-primary px-6 py-10 shadow-brut"
-      >
-        <div className="mx-auto flex max-w-3xl flex-col items-center gap-3 text-center">
-          <span className="text-xs font-black uppercase tracking-[0.35em] text-foreground/70">
-            Services
-          </span>
-          <h2 className="text-2xl font-black uppercase tracking-[0.3em] text-foreground md:text-3xl">
-            Engineered for expression
-          </h2>
-        </div>
-
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {services.map((service) => (
+        <section id="service" className="grid gap-6 lg:grid-cols-3">
+          {[
+            {
+              title: "Brand System",
+              description:
+                "Identitas visual tajam dengan pola, warna, dan tipografi khas.",
+            },
+            {
+              title: "UI Engineering",
+              description:
+                "Komponen reusable yang dirancang dengan grid brutal dan aksesibilitas.",
+            },
+            {
+              title: "Creative Content",
+              description:
+                "Storytelling visual yang hidup lewat grafis, motion, dan copy yang kuat.",
+            },
+          ].map((service) => (
             <div
               key={service.title}
-              className={`rounded-[var(--radius-lg)] border-4 border-border ${service.tone} p-6 text-left shadow-brut-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-brut`}
+              className="rounded-[var(--radius-lg)] border-4 border-border bg-surface-primary p-10 shadow-brut transition-transform duration-150 ease-out hover:-translate-y-1 hover:bg-surface-strong"
             >
-              <h3 className="text-lg font-black uppercase tracking-[0.28em] text-foreground">
+              <h3 className="text-xl font-black uppercase tracking-[0.25em]">
                 {service.title}
               </h3>
-              <p className="mt-3 text-sm font-semibold text-foreground/80">
+              <p className="mt-4 text-base font-semibold text-foreground/80">
                 {service.description}
               </p>
             </div>
           ))}
-        </div>
-      </section>
+        </section>
 
-      <section
-        id="blog"
-        className="mx-auto w-full max-w-6xl rounded-[var(--radius-xl)] border-4 border-border bg-surface-strong px-6 py-10 shadow-brut-lg"
-      >
-        <div className="flex flex-col gap-3 text-center">
-          <span className="text-xs font-black uppercase tracking-[0.35em] text-foreground/80">
-            Journal
-          </span>
-          <h2 className="text-2xl font-black uppercase tracking-[0.3em] text-foreground md:text-3xl">
-            Stories from the brutal frontier
+        <section
+          id="blog"
+          className="rounded-[var(--radius-xl)] border-4 border-border bg-surface-primary p-12 shadow-brut-lg"
+        >
+          <h2 className="text-3xl font-black uppercase tracking-[0.3em]">
+            Blog
           </h2>
-        </div>
-
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {articles.map((article) => (
-            <article
-              key={article.title}
-              className="flex h-full flex-col gap-4 rounded-[var(--radius-lg)] border-4 border-border bg-surface-primary p-6 text-left shadow-brut transition-transform duration-200 hover:-translate-y-1 hover:shadow-brut-lg"
-            >
-              <span className="text-[0.65rem] font-black uppercase tracking-[0.35em] text-foreground/60">
-                {article.eyebrow}
-              </span>
-              <h3 className="text-lg font-black uppercase tracking-[0.28em] text-foreground">
-                {article.title}
-              </h3>
-              <p className="text-sm font-semibold text-foreground/80">
-                {article.summary}
-              </p>
-              <Button
-                variant="outline"
-                className={`${buttonVariantsNeo.ghost} mt-auto w-fit`}
+          <div className="mt-8 grid gap-6 lg:grid-cols-3">
+            {[
+              {
+                title: "Menyusun grid brutal",
+                excerpt:
+                  "Tips membangun layout blok dengan ritme yang kuat namun terarah.",
+              },
+              {
+                title: "Eksperimen palet warna",
+                excerpt:
+                  "Cara memilih warna kontras tinggi tanpa mengorbankan kenyamanan baca.",
+              },
+              {
+                title: "Tipografi super bold",
+                excerpt:
+                  "Mengoptimalkan hierarki teks dengan jenis huruf tebal dan ekspresif.",
+              },
+            ].map((post) => (
+              <Link
+                key={post.title}
+                href="#"
+                className="group flex h-full flex-col justify-between rounded-[var(--radius-lg)] border-4 border-border bg-surface-muted p-8 shadow-brut-sm transition-transform duration-150 ease-out hover:-translate-y-1 hover:bg-surface-strong"
               >
-                Read Story
-              </Button>
-            </article>
-          ))}
-        </div>
-      </section>
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.35em] text-foreground/60">
+                    Insight
+                  </p>
+                  <h3 className="mt-4 text-xl font-black leading-snug">
+                    {post.title}
+                  </h3>
+                  <p className="mt-3 text-sm font-semibold text-foreground/70">
+                    {post.excerpt}
+                  </p>
+                </div>
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.2em] text-foreground/80 group-hover:text-foreground">
+                  Baca
+                  <span aria-hidden>→</span>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
 
-      <section
-        id="contact"
-        className="mx-auto flex w-full max-w-5xl flex-col gap-6 rounded-[var(--radius-xl)] border-4 border-border bg-accent px-8 py-12 text-center shadow-brut"
-      >
-        <span className="text-xs font-black uppercase tracking-[0.35em] text-foreground/70">
-          Contact
-        </span>
-        <h2 className="text-2xl font-black uppercase tracking-[0.3em] text-accent-foreground md:text-3xl">
-          Let’s craft your next brutalist experience
-        </h2>
-        <p className="mx-auto max-w-3xl text-sm font-semibold text-accent-foreground/80 md:text-base">
-          Collaborate with our team to translate your product vision into a
-          high-contrast, high-impact system that thrives in light and dark
-          themes.
-        </p>
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <Button
-            variant="outline"
-            className={buttonVariantsNeo.inverse}
-          >
-            hello@neobrutal.studio
-          </Button>
-          <Button
-            variant="outline"
-            className={buttonVariantsNeo.secondary}
-          >
-            Schedule Intro Call
-          </Button>
-        </div>
-      </section>
+        <section
+          id="contact"
+          className="rounded-[var(--radius-xl)] border-4 border-border bg-accent p-12 text-accent-foreground shadow-brut-lg"
+        >
+          <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+            <div>
+              <h2 className="text-3xl font-black uppercase tracking-[0.3em]">
+                Mari Kolaborasi
+              </h2>
+              <p className="mt-6 text-lg font-semibold">
+                Ceritakan ide Anda dan saya akan mengubahnya menjadi pengalaman
+                digital yang berani dan berbeda.
+              </p>
+            </div>
+            <div className="flex flex-col gap-4">
+              <Button
+                asChild
+                variant="secondary"
+                className="bg-surface-primary tracking-[0.25em] hover:bg-surface-strong"
+              >
+                <Link href="mailto:hello@hadijoe.com">Email Saya</Link>
+              </Button>
+              <Button
+                asChild
+                variant="secondary"
+                className="tracking-[0.25em]"
+              >
+                <Link href="#home">Lihat Kembali Atas</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      </main>
       <Footer />
-    </main>
+    </div>
   );
 }

@@ -1,56 +1,95 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { Sun, Moon } from "lucide-react";
 
 const NAV_ITEMS = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#service", label: "Service" },
-  { href: "#blog", label: "Blog" },
-  { href: "#contact", label: "Contact", isCta: true },
+  { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
+  { label: "Service", href: "#service" },
+  { label: "Blog", href: "#blog" },
 ];
 
-const BUTTON_BASE =
-  "rounded-3xl border-4 border-border font-black uppercase tracking-[0.28em] transition-transform duration-200 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
+type Theme = "light" | "dark";
 
-const NAV_BUTTON_CLASSES = {
-  default: `${BUTTON_BASE} px-6 py-3 text-[0.75rem] md:text-sm bg-surface-muted text-foreground shadow-brut-sm hover:bg-surface-strong hover:shadow-brut`,
-  cta: `${BUTTON_BASE} px-8 py-3 text-xs md:text-sm bg-accent text-accent-foreground shadow-brut hover:shadow-brut-lg`,
-} as const;
+export function Header() {
+  const [theme, setTheme] = useState<Theme>("light");
 
-export function Header({ className }: { className?: string }) {
+  const applyTheme = useCallback((mode: Theme) => {
+    if (typeof document === "undefined") return;
+    const root = document.documentElement;
+    root.classList.toggle("dark", mode === "dark");
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("theme", mode);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const stored = (window.localStorage.getItem("theme") as Theme | null) ?? null;
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initial = stored ?? (prefersDark ? "dark" : "light");
+    setTheme(initial);
+    applyTheme(initial);
+  }, [applyTheme]);
+
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    applyTheme(next);
+  };
+
   return (
-    <header
-      className={cn(
-        "mx-auto flex w-full max-w-6xl flex-col gap-6 rounded-[var(--radius-xl)] border-4 border-border bg-surface-primary px-6 py-6 text-center shadow-brut md:flex-row md:items-center md:justify-between md:px-10 md:py-6",
-        className,
-      )}
-    >
-      <Link
-        href="#home"
-        className="flex items-center gap-3 rounded-3xl border-4 border-border bg-surface-strong px-5 py-3 text-lg font-black uppercase tracking-[0.3em] shadow-brut-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-brut"
-      >
-        <span className="hidden sm:inline">Neo</span>
-        <span className="text-accent">Brutal</span>
-      </Link>
-
-      <nav className="flex-1">
-        <ul className="flex flex-wrap items-center justify-end gap-3 sm:gap-4 md:flex-nowrap">
-          {NAV_ITEMS.map((item) => (
-            <li key={item.href}>
-              <Button
-                asChild
-                variant="outline"
-                className={item.isCta ? NAV_BUTTON_CLASSES.cta : NAV_BUTTON_CLASSES.default}
-              >
-                <Link href={item.href}>{item.label}</Link>
-              </Button>
-            </li>
-          ))}
-        </ul>
-      </nav>
+    <header className="sticky top-0 z-50 border-b-4 border-border bg-surface-primary/95 backdrop-blur-sm">
+      <div className="mx-auto flex w-full max-w-6xl items-center gap-6 px-6 py-5">
+        <Link
+          href="#home"
+          className="group flex items-center gap-4 text-foreground"
+        >
+          <span className="grid h-14 w-14 place-items-center rounded-3xl border-4 border-border bg-surface-strong text-lg font-black uppercase tracking-[0.35em] shadow-brut-sm transition-transform duration-150 ease-out group-hover:-translate-y-1 group-hover:shadow-brut">
+            HJ
+          </span>
+          <span className="text-xl font-black uppercase tracking-tight">
+            Hadijoe
+          </span>
+        </Link>
+        <nav className="flex flex-1 justify-center">
+          <ul className="flex items-center gap-4">
+            {NAV_ITEMS.map((item) => (
+              <li key={item.label}>
+                <Link
+                  href={item.href}
+                  className="inline-flex items-center rounded-2xl border-2 border-border bg-surface-muted px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-foreground shadow-brut-sm transition-transform duration-150 ease-out hover:-translate-y-1 hover:bg-surface-strong"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="flex items-center gap-3">
+          <Link
+            href="#contact"
+            className="inline-flex items-center justify-center rounded-3xl border-4 border-border bg-accent px-6 py-3 text-sm font-black uppercase tracking-[0.3em] text-accent-foreground shadow-brut transition-transform duration-150 ease-out hover:-translate-y-1 hover:shadow-brut-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+          >
+            Contact
+          </Link>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="inline-flex h-12 w-12 items-center justify-center rounded-3xl border-4 border-border bg-surface-muted text-foreground shadow-brut-sm transition-transform duration-150 ease-out hover:-translate-y-1 hover:bg-surface-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+            aria-pressed={theme === "dark"}
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {theme === "dark" ? (
+              <Sun aria-hidden className="h-5 w-5" />
+            ) : (
+              <Moon aria-hidden className="h-5 w-5" />
+            )}
+          </button>
+        </div>
+      </div>
     </header>
   );
 }
